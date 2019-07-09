@@ -271,12 +271,12 @@ app.put('/citas/:id', (req, res) => {
             err ? res.status(400).send({
                 success: false,
                 mensaje: "Revise todos los campos antes de enviar",
-                err: err})
-                : res.status(200).send({
+                error: err })
+            : res.status(200).send({
                     success: true,
                     mensaje: "Cita actualizada correctamente",
                     cita: cita
-                });
+            });
         });
 });
 

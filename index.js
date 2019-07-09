@@ -12,19 +12,20 @@ const { Registro } = require('./models/Registro')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
+const router = express.Router();
+
 const app = express();
 app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
+require('dotenv').config({ path: 'ENV_FILENAME' });
 
 const PORT = process.env.PORT || 3001;
-const DB_USER = "karen";
-const DB_PASS = "ABZWO1RKXRt6A2K4"
 
 /*DB_USER = process.env.DB_USER;
-DB_PASS = process.env.DB_PASS;
+DB_PASS = process.env.DB_PASS;*/
 
-const URL_MONGO = `mongodb+srv://${DB_USER}:${DB_PASS}@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority`;
+/*const URL_MONGO = `mongodb+srv://${DB_USER}:${DB_PASS}@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority`;
 console.log(URL_MONGO);
 
 //Conexión a mongo
@@ -36,6 +37,31 @@ mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
 
     }
 })*/
+
+mongoose.connect('mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}); 
+mongoose.connection.once('open', function(){
+    console.log("Conexión exitosa");
+}).on('err', function(err){
+    console.error("Ocurrió un error inesperado", err);
+});
+
+const originWhitelist = ['http://localhost:3001', 'https://apihosp.herokuapp.com/'];
+
+// middleware route that all requests pass through
+router.use((request, response, next) => {
+    console.log('Server info: Request received', request.method + ': ' + request.url);
+    let origin = request.headers.origin;
+    // only allow requests from origins that we trust
+    if (originWhitelist.indexOf(origin) > -1) {
+      response.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    // only allow get requests, separate methods by comma e.g. 'GET, POST'
+    response.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
+    response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    response.setHeader('Access-Control-Allow-Credentials', true);
+    // push through to the proper route
+    next();
+  });
 
 app.get('/',(req, res)=>{
     res.status(200)

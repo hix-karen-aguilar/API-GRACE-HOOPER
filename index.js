@@ -33,6 +33,12 @@ mongoose.connect(URL_MONGO, { useNewUrlParser: true }, (err) => {
     }
 });
 
+app.get('/', (req, res) => res.send("Hello World"));
+
+response.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
+response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+response.setHeader('Access-Control-Allow-Credentials', true);
+
 //PACIENTES
 //GET todos los pacientes
 app.get('/pacientes', (req, res) => {

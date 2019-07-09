@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 3001;
 const DB_USER = "karen";
 const DB_PASS = "ABZWO1RKXRt6A2K4"
 
-DB_USER = process.env.DB_USER;
+/*DB_USER = process.env.DB_USER;
 DB_PASS = process.env.DB_PASS;
 
 const URL_MONGO = `mongodb+srv://${DB_USER}:${DB_PASS}@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority`;
@@ -35,7 +35,7 @@ mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
         console.log("Conexión exitosa");
 
     }
-})
+})*/
 
 app.get('/',(req, res)=>{
     res.status(200)

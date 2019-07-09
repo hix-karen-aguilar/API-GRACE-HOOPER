@@ -12,31 +12,39 @@ const { Registro } = require('./models/Registro')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
+const PORT = process.env.PORT || 3001;
+
 const app = express();
-app.use(cors());
+
+app.use(cors({
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'origin': '*',
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+  }));
+//app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-
+app.get('/',(req, res)=>{
+    res.status(200)
+    .send({message: 'Hola desde desde el puerto 3001'});
+});
 // const DB_USER = process.env.DB_USER;
 // const DB_PASS = process.env.DB_PASS;
-const PORT = process.env.PORT || 3001;
-//const PORT = process.env.PORt || 'https://apihosp.herokuapp.com/';
 
-//const URL_MONGO = `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0-ijbr8.mongodb.net/test?retryWrites=true`;
-const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';
-
-console.log("LOG: ", URL_MONGO);
+/*const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
 
 //Conexión a mongo
-mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
+/*mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
     if(err){
         console.error("Ocurrió un error inesperado", err);
     } else {
         console.log("Conexión exitosa");
 
     }
-});
+});*/
 
 //PACIENTES
 //GET todos los pacientes
@@ -271,12 +279,12 @@ app.put('/citas/:id', (req, res) => {
             err ? res.status(400).send({
                 success: false,
                 mensaje: "Revise todos los campos antes de enviar",
-                error: err })
-            : res.status(200).send({
+                err: err})
+                : res.status(200).send({
                     success: true,
                     mensaje: "Cita actualizada correctamente",
                     cita: cita
-            });
+                });
         });
 });
 

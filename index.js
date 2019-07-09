@@ -34,17 +34,17 @@ app.get('/',(req, res)=>{
 // const DB_USER = process.env.DB_USER;
 // const DB_PASS = process.env.DB_PASS;
 
-/*const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
+const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
 
 //Conexión a mongo
-/*mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
+mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
     if(err){
         console.error("Ocurrió un error inesperado", err);
     } else {
         console.log("Conexión exitosa");
 
     }
-});*/
+})
 
 //PACIENTES
 //GET todos los pacientes

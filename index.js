@@ -18,10 +18,13 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
 const PORT = process.env.PORT || 3001;
-// const DB_USER = process.env.DB_USER;
-// const DB_PASS = process.env.DB_PASS;
+const DB_USER = "karen";
+const DB_PASS = "ABZWO1RKXRt6A2K4"
 
-const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
+DB_USER = process.env.DB_USER;
+DB_PASS = process.env.DB_PASS;
+
+const URL_MONGO = `mongodb+srv://${DB_USER}:${DB_PASS}@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority`;
 console.log(URL_MONGO);
 
 //Conexión a mongo

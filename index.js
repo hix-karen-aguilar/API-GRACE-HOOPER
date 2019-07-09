@@ -12,39 +12,32 @@ const { Registro } = require('./models/Registro')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
-const PORT = process.env.PORT || 3001;
-
 const app = express();
-
-app.use(cors({
-    'allowedHeaders': ['sessionId', 'Content-Type'],
-    'exposedHeaders': ['sessionId'],
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-  }));
-//app.use(cors());
+app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-app.get('/',(req, res)=>{
-    res.status(200)
-    .send({message: 'Hola desde desde el puerto 3001'});
-});
+const PORT = process.env.PORT || 3001;
 // const DB_USER = process.env.DB_USER;
 // const DB_PASS = process.env.DB_PASS;
 
-//const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
+const URL_MONGO = 'mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority';*/
+console.log(URL_MONGO);
 
 //Conexión a mongo
-/*mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
+mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
     if(err){
         console.error("Ocurrió un error inesperado", err);
     } else {
         console.log("Conexión exitosa");
 
     }
-})*/
+})
+
+app.get('/',(req, res)=>{
+    res.status(200)
+    .send({message: 'Hola desde API LS'});
+});
 
 //PACIENTES
 //GET todos los pacientes

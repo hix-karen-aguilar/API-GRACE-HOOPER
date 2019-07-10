@@ -12,13 +12,7 @@ const { Registro } = require('./models/Registro')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
-const router = express.Router();
-
-const app = express();
-app.use(cors());
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
-require('dotenv').config({ path: 'ENV_FILENAME' });
+require('dotenv').config({ path: 'env' });
 
 const PORT = process.env.PORT || 3001;
 
@@ -37,15 +31,22 @@ mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
 
     }
 })*/
+mongoose.connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}, (err) => {
+    if(err) return err
+    console.log("Conexión exitosa a Mongo")
+})
 
-mongoose.connect('mongodb+srv://karen:ABZWO1RKXRt6A2K4@laboratorio-pdxyp.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}); 
-mongoose.connection.once('open', function(){
-    console.log("Conexión exitosa");
-}).on('err', function(err){
-    console.error("Ocurrió un error inesperado", err);
-});
+const router = express.Router();
 
-const originWhitelist = ['http://localhost:3001', 'https://apihosp.herokuapp.com/'];
+const app = express();
+app.use(cors());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+
+const originWhitelist = ['http://localhost:3001', 'https://apihosp.herokuapp.com'];
 
 // middleware route that all requests pass through
 router.use((request, response, next) => {

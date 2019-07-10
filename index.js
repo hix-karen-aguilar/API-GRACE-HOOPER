@@ -71,7 +71,7 @@ app.get('/',(req, res)=>{
 
 //PACIENTES
 //GET todos los pacientes
-app.get('/pacientes', (req, res) => {
+router.get('/pacientes', (req, res) => {
     Ctrl.paciente.mostrarPacientes()
         .then(pacientes => {
             if (!pacientes) {

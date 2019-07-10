@@ -12,7 +12,7 @@ const { Registro } = require('./models/Registro')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
-require('dotenv').config();
+require('env').config();
 
 const PORT = process.env.PORT || 3001;
 

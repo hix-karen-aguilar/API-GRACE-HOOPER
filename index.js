@@ -71,7 +71,7 @@ app.get('/',(req, res)=>{
 
 //PACIENTES
 //GET todos los pacientes
-app.get('/pacientes', (res) => {
+app.get('/pacientes', (req, res, next) => {
     Ctrl.paciente.mostrarPacientes()
         .then(pacientes => {
             if (!pacientes) {
@@ -79,6 +79,7 @@ app.get('/pacientes', (res) => {
                 res.send({ mensaje: 'No hay pacientes que mostrar' });
             } else {
                 res.send(pacientes).status(200);
+                next();
             }
         }).catch(err => {
             console.log("Error", err);

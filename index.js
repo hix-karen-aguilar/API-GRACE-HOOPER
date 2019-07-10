@@ -46,7 +46,7 @@ app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-const originWhitelist = ['http://localhost:3001', 'https://apihosp.herokuapp.com'];
+const originWhitelist = ['http://localhost:3001', 'https://api-gracehooper.herokuapp.com'];
 
 // middleware route that all requests pass through
 router.use((request, response, next) => {
@@ -71,7 +71,7 @@ app.get('/',(req, res)=>{
 
 //PACIENTES
 //GET todos los pacientes
-app.get('/pacientes', (req, res) => {
+app.get('/pacientes', (res) => {
     Ctrl.paciente.mostrarPacientes()
         .then(pacientes => {
             if (!pacientes) {

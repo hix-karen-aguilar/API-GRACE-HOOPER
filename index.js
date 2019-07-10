@@ -49,7 +49,7 @@ app.use(bodyparser.json());
 const originWhitelist = ['http://localhost:3001', 'https://api-gracehooper.herokuapp.com'];
 
 // middleware route that all requests pass through
-router.use((request, response, next) => {
+app.use((request, response, next) => {
     console.log('Server info: Request received', request.method + ': ' + request.url);
     let origin = request.headers.origin;
     // only allow requests from origins that we trust

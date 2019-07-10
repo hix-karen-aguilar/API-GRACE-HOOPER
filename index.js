@@ -31,6 +31,8 @@ mongoose.connect(URL_MONGO, { useNewUrlParser: true}, (err) => {
 
     }
 })*/
+console.log("Conectando... ", process.env.DATABASE);
+
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useCreateIndex: true
